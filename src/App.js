@@ -1,32 +1,62 @@
 import React from 'react';
-import user from './Components/Profile/user.json';
-import Profile from './Components/Profile';
+import { useState } from 'react';
+import { createUseStyles } from 'react-jss';
 
-import statisticalData from './Components/Statistics/statistical-data.json';
-import TitleStat from './Components/Statistics/TitleStat';
-import Statistics from './Components/Statistics/Statistics';
+import FormContacts from './Components/FormContacts';
+import ListContacts from './Components/ListContacts';
+import Filter from './Components/Filter';
 
-import friends from './Components/FriendList/friends.json';
-import FriendList from './Components/FriendList';
+const useStyles = createUseStyles({
+  start: {
+    color: 'green',
+    margin: 15,
+  },
+});
 
-import transactions from './Components/Transaction-history/transactions.json';
-import TransactionHistory from './Components/Transaction-history';
+function App() {
+  const classes = useStyles();
 
-export default function App() {
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
+
+  const handleSubmit = contact => {
+    const isInContacts = contacts.find(
+      item => item.name.toLowerCase() === contact.name.toLowerCase(),
+    );
+
+    if (isInContacts) {
+      alert(`${contact.name} is already in contacts`);
+      return;
+    }
+    setContacts(prevState => [contact, ...prevState]);
+  };
+
+  const changeFilter = e => {
+    setFilter(e.target.value);
+  };
+
+  const getFilterContacts = () => {
+    const normalizedFilter = filter.toLowerCase();
+    const filteredContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter),
+    );
+    return filteredContacts;
+  };
+
+  const handlerDelete = id =>
+    setContacts(prevState => prevState.filter(contact => contact.id !== id));
+
   return (
     <>
-      <Profile
-        name={user.name}
-        tag={user.tag}
-        location={user.location}
-        avatar={user.avatar}
-        stats={user.stats}
-      />
-      <TitleStat title="Upload stats">
-        <Statistics stats={statisticalData} />
-      </TitleStat>
-      <FriendList friends={friends} />
-      <TransactionHistory items={transactions} />;
+      <h1 className={classes.start}>Phonebook</h1>
+      <FormContacts onSubmit={handleSubmit} />
+
+      <h1 className={classes.start}>Contacts</h1>
+      <Filter value={filter} onChange={changeFilter} />
+
+      <ListContacts contacts={getFilterContacts()} onDelete={handlerDelete} />
     </>
   );
 }
+
+export default App;
