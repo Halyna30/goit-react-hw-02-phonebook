@@ -2,9 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 
-import FormContacts from './Components/FormContacts';
-import ListContacts from './Components/ListContacts';
-import Filter from './Components/Filter';
+import FormContacts from './Components/FormContacts/FormContacts';
+import ListContacts from './Components/ListContacts/ListContacts';
+import Filter from './Components/Filter/Filter';
 
 const useStyles = createUseStyles({
   start: {
@@ -36,6 +36,7 @@ function App() {
   };
 
   const getFilterContacts = () => {
+    console.log(contacts);
     const normalizedFilter = filter.toLowerCase();
     const filteredContacts = contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter),
@@ -43,8 +44,13 @@ function App() {
     return filteredContacts;
   };
 
-  const handlerDelete = id =>
-    setContacts(prevState => prevState.filter(contact => contact.id !== id));
+  const handlerDelete = id => {
+    console.log(id);
+    setContacts(prevState => {
+      console.log(prevState);
+      prevState.filter(contact => contact.id !== id);
+    });
+  };
 
   return (
     <>

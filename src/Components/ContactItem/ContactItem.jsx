@@ -1,18 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
-import { createUseStyles } from 'react-jss';
+import useStyles from './stylesContactItem';
 
 const ContactItem = ({ contact, onDelete }) => {
+  const classes = useStyles();
   const { id, number, name } = contact;
 
   const handleDelete = id => onDelete(id);
 
   return (
-    <li key={number} id={id}>
+    <li key={id} id={id}>
       <p>
         {name}: {number}
       </p>
-      <button type="button" onClick={handleDelete}>
+      <button type="button" onClick={() => handleDelete(id)}>
         Delete
       </button>
     </li>
