@@ -4,7 +4,7 @@ import shortid from 'shortid';
 
 const FormContacts = ({ onSubmit }) => {
   const classes = useStyles();
-  const shortid = require('shortid');
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -34,6 +34,7 @@ const FormContacts = ({ onSubmit }) => {
           <input
             type="text"
             name={name}
+            value={name}
             className={classes.input}
             onChange={handleInput}
           />
@@ -43,6 +44,7 @@ const FormContacts = ({ onSubmit }) => {
           <input
             type="number"
             number={number}
+            value={number}
             className={classes.input}
             onChange={handleInput}
           />

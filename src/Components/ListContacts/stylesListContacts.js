@@ -1,9 +1,9 @@
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
-  start: {
-    color: 'green',
-    margin: 15,
+  list: {
+    padding: 0,
+    margin: 20,
   },
 });
 

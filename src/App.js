@@ -49,9 +49,7 @@ function App() {
   };
 
   const handlerDelete = id => {
-    setContacts(prevState => {
-      prevState.filter(contact => contact.id !== id);
-    });
+    setContacts([...contacts.filter(contact => contact.id !== id)]);
   };
 
   return (
