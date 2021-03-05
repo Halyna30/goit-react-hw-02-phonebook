@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useStyles from './stylesFormContacts';
 import shortid from 'shortid';
+import PropTypes from 'prop-types';
 
 const FormContacts = ({ onSubmit }) => {
   const classes = useStyles();
@@ -60,6 +61,10 @@ const FormContacts = ({ onSubmit }) => {
       </form>
     </>
   );
+};
+
+FormContacts.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default FormContacts;
